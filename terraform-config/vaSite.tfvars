@@ -1,0 +1,7 @@
+username = "tfadmin@vsphere.local"
+password  = "PASSWORD"
+tenant = "va"
+host = "https://vra-portal-va2.playtika.local"
+suffix = "va2"
+prefix = "vegas-prod"
+catalog_name = "VDSAppServer"
