@@ -18,3 +18,23 @@ variable "insecure" {
   type = bool
   default = "false"
 }
+# Input variable: project_name
+variable "project_name" {
+  description = "vRA Project Name to be added to the project"
+  type = string
+  default = ""
+}
+
+# Input variable: project_description
+variable "project_description" {
+  description = "vRA Project Description to be added to the project"
+  type = string
+  default = ""
+}
+
+# Input variable: zone_name
+variable "zone_name" {
+  description = "vRA Zone Name to be added to the project"
+  type = string
+  default = ""
+}
