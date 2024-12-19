@@ -1,3 +1,9 @@
+#input variable: providers
+variable "providers" {
+  type: string
+  default: "vra"
+}
+
 # Input variable: url
 variable "url" {
   description = "The URL of the vRealize Automation environment either vRA 8.x or vRA Cloud"
