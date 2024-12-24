@@ -11,6 +11,6 @@ terraform {
 provider "vra" {
   url           = var.url
   refresh_token = var.refresh_token
-  acess_token   = var.acess_token
+  access_token   = var.access_token
   insecure      = true
 }
