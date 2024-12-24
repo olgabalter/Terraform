@@ -14,11 +14,11 @@ variable "access_token" {
 }
 
 # Input variable: refresh_token
-variable "refresh_token" {
-  description = "The refresh token to connect to the vRealize Automation environment"
-  type = string
-  default = ""
-}
+#variable "refresh_token" {
+#  description = "The refresh token to connect to the vRealize Automation environment"
+#  type = string
+#  default = ""
+#}
 
 # Input variable: insecure
 variable "insecure" {
