@@ -16,7 +16,7 @@ variable "refresh_token" {
 variable "insecure" {
   description = "Should SSL verification be skipped? true = skip ssl verification"
   type = bool
-  default = "false"
+  default = "true"
 }
 # Input variable: project_name
 variable "project_name" {
