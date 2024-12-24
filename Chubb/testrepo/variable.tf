@@ -6,6 +6,13 @@ variable "url" {
   default = "https://ca-vra.terasky.local"
 }
 
+# Input variable: acess_token
+variable "acess_token" {
+  description = "The acess token to connect to the vRealize Automation environment"
+  type = string
+  default = ""
+}
+
 # Input variable: refresh_token
 variable "refresh_token" {
   description = "The refresh token to connect to the vRealize Automation environment"
