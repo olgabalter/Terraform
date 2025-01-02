@@ -52,17 +52,3 @@ variable "content_source" {
   type = string
   default = ""
 }
-
-# Input variable: policy_name
-variable "policy_name" {
-  description = "Content sharing policy name"
-  type = string
-  default = ""
-}
-
-# Input variable: poilcy_description
-variable "poilcy_description" {
-  description = "Content sharing policy description"
-  type = string
-  default = ""
-}
