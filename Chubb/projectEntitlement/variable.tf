@@ -5,6 +5,13 @@ variable "url" {
   default = "https://ca-vra.terasky.local"
 }
 
+# Input variable: refresh_token
+variable "refresh_token" {
+  description = "The refresh token to connect to the vRealize Automation environment"
+  type = string
+  default = ""
+}
+
 # Input variable: project_name
 variable "project_name" {
   description = "Created vRA project name"
