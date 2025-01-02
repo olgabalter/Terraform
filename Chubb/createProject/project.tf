@@ -19,9 +19,12 @@ data "catalog_source" "this" {
     storage_limit_gb = 1024
   }
 
-  shared_resources        = false
-  administrator_roles     = ["olga@terasky.local"]
-  members                 = ["olga@terasky.local"]
+  shared_resources    = false
+  administrator_roles {
+    email = "olga@terasky.local"
+    type  = "user"
+  }
+ 
   operation_timeout       = 6000
   machine_naming_template = "$${resource.name}-$${####}"
 }
