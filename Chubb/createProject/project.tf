@@ -2,14 +2,13 @@ data "vra_zone" "this" {
   name = var.zone_name
 }
 
-resource "vra_project" "this" {
-  name        = var.project_name
-  description = var.project_description
-
 data "catalog_source" "this" {
   name = var.content_source
 }
 
+resource "vra_project" "this" {
+  name        = var.project_name
+  description = var.project_description
   zone_assignments {
     zone_id          = data.vra_zone.this.id
     priority         = 1
