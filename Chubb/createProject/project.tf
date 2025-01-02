@@ -32,6 +32,7 @@ resource "vra_project" "this" {
       expression = "environment:Test"
       mandatory  = true
     }
+  }
 }
 
 resource "vra_catalog_source_entitlement" "this" {
