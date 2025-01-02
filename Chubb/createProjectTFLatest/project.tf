@@ -31,15 +31,10 @@ resource "vra_project" "this" {
   
   operation_timeout       = 6000
   machine_naming_template = "$${resource.name}-$${####}"
-  constraints {
-    extensibility {
-      expression = "application:web"
-      mandatory  = true
-    }
-    extensibility {
-      expression = "environment:Test"
-      mandatory  = true
-    }
+  custom_properties = {
+    "location": var.location,
+    "env": var.env,
+    "app": var.app
   }
 }
 
