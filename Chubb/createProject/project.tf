@@ -36,6 +36,3 @@ output "project_id" {
   value = vra_project.this.id
 }
 
-output "content_sharing_policy_id" {
-  value = vra_content_sharing_policy.this.id
-}
