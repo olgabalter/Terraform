@@ -2,7 +2,7 @@ data "vra_zone" "this" {
   name = var.zone_name
 }
 
-data "catalog_source" "this" {
+data "vra_catalog_source_blueprint" "this" {
   name = var.content_source
 }
 
@@ -28,17 +28,10 @@ resource "vra_project" "this" {
   machine_naming_template = "$${resource.name}-$${####}"
 }
 
-resource "vra_content_sharing_policy" "this" {
-  name               = var.policy_name
-  description        = var.poilcy_description
-  project_id         = vra_project.this.id
-
-  catalog_source_ids = [
-   catalog_source.this.id
-  ]
+resource "vra_catalog_source_entitlement" "this" {
+  catalog_source_id = var.vra_catalog_source_blueprint.id
+  project_id        = vra_project.this.id
 }
 
-output "project_id" {
-  value = vra_project.this.id
-}
+
 
