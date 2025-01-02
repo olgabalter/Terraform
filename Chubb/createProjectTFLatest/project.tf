@@ -43,7 +43,11 @@ resource "vra_project" "this" {
   }
 }
 
-resource "vra_catalog_source_entitlement" "this" {
-  catalog_source_id = data.vra_catalog_source_blueprint.this.id
+resource "vra_content_sharing_policy" "this" {
+  name               = var.policy_name
+  description        = var.policy_description
   project_id        = vra_project.this.id
+  catalog_source_ids = [
+    data.vra_catalog_source_blueprint.this.id
+  ]
 }
