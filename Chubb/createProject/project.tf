@@ -2,10 +2,6 @@ data "vra_zone" "this" {
   name = var.zone_name
 }
 
-data "catalog_source" "this" {
-  name = var.content_source
-}
-
 resource "vra_project" "this" {
   name        = var.project_name
   description = var.project_description
@@ -32,7 +28,7 @@ resource "vra_content_sharing_policy" "this" {
   project_id         = vra_project.this.id
 
   catalog_source_ids = [
-    data.catalog_source.this.id
+   "fbe2408b-6f60-49ad-b224-0f3bb9cc9265"
   ]
 }
 
