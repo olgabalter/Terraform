@@ -6,6 +6,10 @@ resource "vra_project" "this" {
   name        = var.project_name
   description = var.project_description
 
+data "catalog_source" "this" {
+  name = var.content_source
+}
+
   zone_assignments {
     zone_id          = data.vra_zone.this.id
     priority         = 1
@@ -16,7 +20,7 @@ resource "vra_project" "this" {
   }
 
   shared_resources        = false
-  administrators          = ["olga@terasky.local"]
+  administrator_roles     = ["olga@terasky.local"]
   members                 = ["olga@terasky.local"]
   operation_timeout       = 6000
   machine_naming_template = "$${resource.name}-$${####}"
@@ -28,7 +32,7 @@ resource "vra_content_sharing_policy" "this" {
   project_id         = vra_project.this.id
 
   catalog_source_ids = [
-   "fbe2408b-6f60-49ad-b224-0f3bb9cc9265"
+   catalog_source.this.id
   ]
 }
 
