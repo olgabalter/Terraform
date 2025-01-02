@@ -19,11 +19,8 @@ resource "vra_project" "this" {
   }
 
   shared_resources    = false
-  administrator_roles {
-    email = "olga@terasky.local"
-    type  = "user"
-  }
- 
+  administrators          = ["olga@terasky.local"]
+  members                 = ["olga@terasky.local"]
   operation_timeout       = 6000
   machine_naming_template = "$${resource.name}-$${####}"
 }
