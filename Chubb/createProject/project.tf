@@ -26,7 +26,7 @@ resource "vra_project" "this" {
 }
 
 resource "vra_catalog_source_entitlement" "this" {
-  catalog_source_id = var.vra_catalog_source_blueprint.id
+  catalog_source_id = data.vra_catalog_source_blueprint.id
   project_id        = vra_project.this.id
 }
 
