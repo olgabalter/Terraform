@@ -11,18 +11,27 @@ resource "vra_project" "this" {
   description = var.project_description
   zone_assignments {
     zone_id          = data.vra_zone.this.id
-    priority         = 1
-    max_instances    = 5
-    cpu_limit        = 16
-    memory_limit_mb  = 16384
-    storage_limit_gb = 1024
+    priority         = 0
+    max_instances    = 0
+    cpu_limit        = 0
+    memory_limit_mb  = 0
+    storage_limit_gb = 0
   }
 
   shared_resources    = false
-  administrators          = ["olga@terasky.local"]
-  members                 = ["olga@terasky.local"]
+  administrators          = ["olga@terasky.com"]
+  members                 = ["olga@terasky.com"]
   operation_timeout       = 6000
   machine_naming_template = "$${resource.name}-$${####}"
+  constraints {
+    extensibility {
+      expression = "application:web"
+      mandatory  = true
+    }
+    extensibility {
+      expression = "environment:Test"
+      mandatory  = true
+    }
 }
 
 resource "vra_catalog_source_entitlement" "this" {
