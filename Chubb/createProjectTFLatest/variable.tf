@@ -66,3 +66,25 @@ variable "poilcy_description" {
   type = string
   default = ""
 }
+
+# Input variable: location
+variable "location" {
+  description = "Project location"
+  type = string
+  default = ""
+}
+
+# Input variable: env
+variable "env" {
+  description = "Project environment"
+  type = string
+  default = ""
+}
+
+# Input variable: app
+variable "app" {
+  description = "Project application"
+  type = string
+  default = ""
+}
+
