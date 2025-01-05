@@ -32,8 +32,7 @@ resource "vra_project" "this" {
   operation_timeout       = 6000
   machine_naming_template = "$${resource.name}-$${####}"
   custom_properties = {
-    for_each = var.environment_config
-    "prop${each.key + 1}" = "${var.project_name}-${each.value}"
+    for i, v in var.environment_config: "prop${i + 1}" => v
   }
 }
 
