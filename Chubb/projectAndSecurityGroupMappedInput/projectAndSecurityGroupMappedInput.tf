@@ -48,7 +48,7 @@ resource "vra_content_sharing_policy" "this" {
 resource "nsxt_policy_group" "this" {
   display_name = var.project_name
   description  = var.project_description
-  for_each = var.environment_config
+  for_each = toset(var.environment_config)
   tag {
       scope = "env_details"
       tag = "${var.project_name}-${each.value}"
