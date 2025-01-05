@@ -36,6 +36,7 @@ resource "vra_project" "this" {
     prop = {
     "prop${each.key + 1}" = "${var.project_name}-${each.value}"
     }
+  }
 }
 
 resource "vra_content_sharing_policy" "this" {
@@ -55,6 +56,6 @@ resource "nsxt_policy_group" "this" {
     tag {
       scope = "env_details"
       tag = "${var.project_name}-${tags.value}"
-    }
+     }
   }
  }
