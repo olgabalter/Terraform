@@ -52,11 +52,11 @@ resource "vra_project" "this" {
   
   operation_timeout       = 6000
   machine_naming_template = "$${resource.name}-$${####}"
-  custom_properties = {
-    "location": var.location,
-    "env": var.env,
-    "app": var.app
-  }
+  custom_properties = merge({
+    "env_details" = "var.project_name-${local.instances[count.index].environment}"
+    },
+    local.instances[count.index].custom_properties
+  )
 }
 
 resource "vra_content_sharing_policy" "this" {
@@ -71,16 +71,10 @@ resource "vra_content_sharing_policy" "this" {
 resource "nsxt_policy_group" "this" {
   display_name = var.project_name
   description  = var.project_description
-  tag {
-  	scope = "location"
-  	tag = var.location
-  }
-    tag {
-  	scope = "app"
-  	tag = var.app
-  }
-    tag {
-  	scope = "env"
-  	tag = var.env
-  }
+  tag = merge({
+  	scope = "env_details"
+  	tag = "var.project_name-${local.instances[count.index].environment}"
+    },
+   local.instances[count.index].custom_properties
+  )
 }
