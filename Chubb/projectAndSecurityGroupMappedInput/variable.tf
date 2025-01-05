@@ -66,13 +66,6 @@ variable "poilcy_description" {
   default = ""
 }
 
-# Input variable: location
-variable "location" {
-  description = "Project location"
-  type = string
-  default = ""
-}
-
 # Input variable: environment_config
 variable "environment_config" {
   type = list(string)
