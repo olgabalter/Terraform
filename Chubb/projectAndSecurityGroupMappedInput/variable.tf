@@ -75,43 +75,6 @@ variable "location" {
 
 # Input variable: environment_config
 variable "environment_config" {
-  type = map(map(map(list(string))))
-  default = {
-    "NA" = {
-      "Fort Worth" = {
-        "Prod" = ["Application", "Database", "Web"],
-        "Non-Prod" = ["Application", "Database", "Web"],
-        "DMZ" = ["Application", "Database", "Web"]
-      },
-      "Raleigh" = {
-        "Prod" = ["Application", "Database", "Web"],
-        "Non-Prod" = ["Application", "Database", "Web"],
-        "DMZ" = ["Application", "Database", "Web"]
-      }
-    },
-    "EMEA" = {
-      "Amsterdam" = {
-        "Prod" = ["Application", "Database", "Web"],
-        "Non-Prod" = ["Application", "Database", "Web"],
-        "DMZ" = ["Application", "Database", "Web"]
-      },
-      "Slough" = {
-        "Prod" = ["Application", "Database", "Web"],
-        "Non-Prod" = ["Application", "Database", "Web"],
-        "DMZ" = ["Application", "Database", "Web"]
-      }
-    },
-    "LATAM" = {
-      "Fort Worth" = {
-        "Prod" = ["Application", "Database", "Web"],
-        "Non-Prod" = ["Application", "Database", "Web"],
-        "DMZ" = ["Application", "Database", "Web"]
-      },
-      "Raleigh" = {
-        "Prod" = ["Application", "Database", "Web"],
-        "Non-Prod" = ["Application", "Database", "Web"],
-        "DMZ" = ["Application", "Database", "Web"]
-      }
-    }
-  }
+  type = list(string)
+  default = ""
 }
