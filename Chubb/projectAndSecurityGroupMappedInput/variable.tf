@@ -69,5 +69,5 @@ variable "poilcy_description" {
 # Input variable: environment_config
 variable "environment_config" {
   type = list(string)
-  default = ""
+  default = []
 }
