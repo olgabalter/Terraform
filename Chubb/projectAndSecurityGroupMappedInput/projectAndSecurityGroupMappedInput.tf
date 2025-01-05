@@ -31,11 +31,9 @@ resource "vra_project" "this" {
   
   operation_timeout       = 6000
   machine_naming_template = "$${resource.name}-$${####}"
-  custom_properties {
+  custom_properties = {
     for_each = var.environment_config
-    prop = {
     "prop${each.key + 1}" = "${var.project_name}-${each.value}"
-    }
   }
 }
 
@@ -51,11 +49,9 @@ resource "vra_content_sharing_policy" "this" {
 resource "nsxt_policy_group" "this" {
   display_name = var.project_name
   description  = var.project_description
-  dynamic "tags" {
-    for_each = var.environment_config
-    tag {
+  for_each = var.environment_config
+  tag {
       scope = "env_details"
-      tag = "${var.project_name}-${tags.value}"
-     }
-  }
- }
+      tag = "${var.project_name}-${each.value}"
+   }
+}
