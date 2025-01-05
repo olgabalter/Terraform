@@ -53,5 +53,6 @@ resource "nsxt_policy_group" "this" {
     content {
       scope = "env_details"
       tag = "${var.project_name}-${tag.value}"
-   }
+    }
+  }
 }
