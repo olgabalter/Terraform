@@ -5,27 +5,6 @@ data "vra_zone" "this" {
 data "vra_catalog_source_blueprint" "this" {
   name = var.content_source
 }
-locals {
-  # Flatten the environment config into a list of maps for easier iteration
-  instances = flatten([
-    for region, locations in var.environment_config : [
-      for location, environments in locations : [
-        for environment, app_types in environments : {
-          region      = region
-          location    = location
-          environment = environment
-          app_types   = app_types
-          tags = {
-            "Region"      = region
-            "Location"    = location
-            "Environment" = environment
-            "AppTypes"    = join(", ", app_types)
-          }
-        }
-      ]
-    ]
-  ])
-}
 
 resource "vra_project" "this" {
   name        = var.project_name
@@ -52,11 +31,11 @@ resource "vra_project" "this" {
   
   operation_timeout       = 6000
   machine_naming_template = "$${resource.name}-$${####}"
-  custom_properties = merge({
-    "env_details" = "var.project_name-${local.instances[count.index].environment}"
-    },
-    local.instances[count.index].custom_properties
-  )
+  custom_properties {
+    for_each = var.environment_config
+    prop = {
+    "prop${each.key + 1}" = "${var.project_name}-${each.value}"
+    }
 }
 
 resource "vra_content_sharing_policy" "this" {
@@ -71,10 +50,11 @@ resource "vra_content_sharing_policy" "this" {
 resource "nsxt_policy_group" "this" {
   display_name = var.project_name
   description  = var.project_description
-  tag = merge({
-  	scope = "env_details"
-  	tag = "var.project_name-${local.instances[count.index].environment}"
-    },
-   local.instances[count.index].custom_properties
-  )
-}
+  dynamic "tags" {
+    for_each = var.environment_config
+    tag {
+      scope = "env_details"
+      tag = "${var.project_name}-${tags.value}"
+    }
+  }
+ }
