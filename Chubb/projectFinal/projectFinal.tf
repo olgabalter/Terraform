@@ -24,12 +24,12 @@ resource "vra_project" "this" {
 
   shared_resources    = false
   administrator_roles {
-    email = "olga@terasky.com"
+    email = var.requestor
     type  = "user"
   }
   
   member_roles {
-    email = "olga@terasky.com"
+    email = var.requestor
     type  = "user"
   }
   
