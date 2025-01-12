@@ -46,14 +46,15 @@ resource "vra_content_sharing_policy" "this" {
 }
 
 resource "nsxt_policy_group" "this" {
-  display_name = var.project_name
-  description  = var.project_description
   for_each =  toset(var.environment_config)
+  display_name = "${var.project_name}-${each.value}"
+  description  = "Policy group for ${each.value}"
+  
   dynamic "tag" {
-    for_each = split("-",var.environment_config)
+    for_each = split("-",each.value)
     content {
       scope = "env_details"
-      tag = "${each.value}"
+      tag = tag.value
     }
   }
 }
