@@ -6,6 +6,10 @@ data "vra_catalog_source_blueprint" "this" {
   name = var.content_source
 }
 
+# List of scopes for each tag
+locals {
+  tag_scopes = ["region", "location", "environment", "app_type"]
+}
 resource "vra_project" "this" {
   name        = var.project_name
   description = var.project_description
@@ -53,7 +57,7 @@ resource "nsxt_policy_group" "this" {
   dynamic "tag" {
     for_each = split("-",each.value)
     content {
-      scope = "env_details"
+      scope = local.tag_scopes[index(split("-", each.value), tag.value)]
       tag = tag.value
     }
   }
