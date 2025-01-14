@@ -56,13 +56,14 @@ resource "nsxt_policy_group" "this" {
 
   criteria {
     dynamic "condition" {
-      for_each = split("-", each.value)
+      for_each = zip(split("-", each.value), range(length(local.tag_scopes)))
+
       content {
         key         = "Tag"
-        scope       = local.tag_scopes[each.key]
+        scope       = local.tag_scopes[condition.value[1]]
         member_type = "VirtualMachine"
         operator    = "EQUALS"
-        value       = condition.value
+        value       = condition.value[0]
       }
     }
   }
@@ -72,10 +73,11 @@ resource "nsxt_policy_group" "this" {
   }
 
   dynamic "tag" {
-    for_each = split("-", each.value)
+    for_each = zip(split("-", each.value), range(length(local.tag_scopes)))
+
     content {
-      scope = local.tag_scopes[each.key]
-      tag   = tag.value
+      scope = local.tag_scopes[tag.value[1]]
+      tag   = tag.value[0]
     }
   }
 }
