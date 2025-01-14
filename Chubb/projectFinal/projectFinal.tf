@@ -50,32 +50,32 @@ resource "vra_content_sharing_policy" "this" {
 }
 
 resource "nsxt_policy_group" "this" {
-  for_each =  toset(var.environment_config)
+  for_each = toset(var.environment_config)
   display_name = "${var.project_name}-${each.value}"
   description  = "Policy group for ${each.value}"
 
   criteria {
     dynamic "condition" {
-      for_each = split("-",each.value)
+      for_each = split("-", each.value)
       content {
         key         = "Tag"
-        scope       = local.tag_scopes[index(split("-", each.value), condition.value)]
+        scope       = local.tag_scopes[each.key]
         member_type = "VirtualMachine"
         operator    = "EQUALS"
         value       = condition.value
-        }
-     }
-   }
-
-    conjunction {
-    operator = "AND"
+      }
     }
+  }
+
+  conjunction {
+    operator = "AND"
+  }
 
   dynamic "tag" {
-    for_each = split("-",each.value)
+    for_each = split("-", each.value)
     content {
-      scope = local.tag_scopes[index(split("-", each.value), tag.value)]
-      tag = tag.value
+      scope = local.tag_scopes[each.key]
+      tag   = tag.value
     }
   }
 }
