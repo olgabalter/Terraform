@@ -60,11 +60,11 @@ resource "nsxt_policy_group" "this" {
       for_each = range(length(local.tag_scopes))
 
       content {
-        key         = "Tag"
-        scope       = local.tag_scopes[condition.value]
-        member_type = "VirtualMachine"
-        operator    = "EQUALS"
-        value       = split("-", each.value)[condition.value]
+        key            = "Tag"
+        member_type    = "VirtualMachine"
+        operator       = "EQUALS"
+        scope_operator = "EQUALS"
+        value          = split("-", each.value)[condition.value]|local.tag_scopes[condition.value]
       }
     }
   }
