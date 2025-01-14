@@ -59,10 +59,10 @@ resource "nsxt_policy_group" "this" {
       for_each = split("-",each.value)
       content {
         key         = "Tag"
-        scope       = local.tag_scopes[index(split("-", each.value), tag.value)]
+        scope       = local.tag_scopes[index(split("-", each.value), condition.value)]
         member_type = "VirtualMachine"
         operator    = "EQUALS"
-        value       = tag.value
+        value       = condition.value
         }
      }
    }
