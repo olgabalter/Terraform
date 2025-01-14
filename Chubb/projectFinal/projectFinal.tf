@@ -65,10 +65,6 @@ resource "nsxt_policy_group" "this" {
         value          = "${split("-", each.value)[condition.value]}|${local.tag_scopes[condition.value]}"
       }
     }
-    conjunction {
-      operator = "AND"
-    }
-
   }
 
   dynamic "tag" {
