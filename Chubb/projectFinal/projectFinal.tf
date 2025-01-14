@@ -50,20 +50,21 @@ resource "vra_content_sharing_policy" "this" {
 }
 
 resource "nsxt_policy_group" "this" {
-  for_each = toset(var.environment_config)
+  for_each = var.environment_config
+
   display_name = "${var.project_name}-${each.value}"
   description  = "Policy group for ${each.value}"
 
   criteria {
     dynamic "condition" {
-      for_each = zip(split("-", each.value), range(length(local.tag_scopes)))
+      for_each = range(length(local.tag_scopes))
 
       content {
         key         = "Tag"
-        scope       = local.tag_scopes[condition.value[1]]
+        scope       = local.tag_scopes[condition.value]
         member_type = "VirtualMachine"
         operator    = "EQUALS"
-        value       = condition.value[0]
+        value       = split("-", each.value)[condition.value]
       }
     }
   }
@@ -73,11 +74,11 @@ resource "nsxt_policy_group" "this" {
   }
 
   dynamic "tag" {
-    for_each = zip(split("-", each.value), range(length(local.tag_scopes)))
+    for_each = range(length(local.tag_scopes))
 
     content {
-      scope = local.tag_scopes[tag.value[1]]
-      tag   = tag.value[0]
+      scope = local.tag_scopes[tag.value]
+      tag   = split("-", each.value)[tag.value]
     }
   }
 }
