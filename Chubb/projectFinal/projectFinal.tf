@@ -53,7 +53,24 @@ resource "nsxt_policy_group" "this" {
   for_each =  toset(var.environment_config)
   display_name = "${var.project_name}-${each.value}"
   description  = "Policy group for ${each.value}"
-  
+
+  criteria {
+    dynamic "condition" {
+      for_each = split("-",each.value)
+      content {
+        key         = "Tag"
+        scope       = local.tag_scopes[index(split("-", each.value), tag.value)]
+        member_type = "VirtualMachine"
+        operator    = "EQUALS"
+        value       = tag.value
+        }
+     }
+   }
+
+    conjunction {
+    operator = "AND"
+    }
+
   dynamic "tag" {
     for_each = split("-",each.value)
     content {
