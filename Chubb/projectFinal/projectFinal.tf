@@ -63,7 +63,6 @@ resource "nsxt_policy_group" "this" {
         key            = "Tag"
         member_type    = "VirtualMachine"
         operator       = "EQUALS"
-        scope_operator = "EQUALS"
         value          = "${split("-", each.value)[condition.value]}|${local.tag_scopes[condition.value]}"
       }
     }
